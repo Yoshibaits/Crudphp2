@@ -2,6 +2,7 @@
 
 require './dbconnection/dbconnect.php';
 
+
 if (isset($_GET['student_id'])) {
     $student_id = mysqli_real_escape_string($con_student,$_GET['student_id']);
     $query = "SELECT * FROM students WHERE id='$student_id'";

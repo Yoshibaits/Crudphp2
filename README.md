@@ -13,3 +13,6 @@ CREATE TABLE students (
     phone VARCHAR(191) NOT NULL,
     course VARCHAR(191) NOT NULL
 )
+
+ENCOUNTERED HASHING PROBLEM
+A must remember $hashed_password = password_hash($password, PASSWORD_BCRYPT);// hash password

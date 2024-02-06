@@ -13,6 +13,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $username = validate($_POST['username']);
     $password = validate($_POST['password']);
 
+    
+
     if(empty($username)){
         header('Location: index.php?error=Please enter a username');
         exit();
@@ -20,32 +22,44 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         header('Location: index.php?error=Please enter a password');
         exit();
     }else{
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);// hash password
-
-        // prepared statement
-        $prepared_query = $con->prepare ("SELECT * FROM users WHERE username= ?");
-        $prepared_query -> bind_param("s", $username);
-        $prepared_query -> execute();
+        // $hashed_password = password_hash($password, PASSWORD_BCRYPT);// hash password
+        $prepared_query = $con_login->prepare ("SELECT * FROM users WHERE username= ?");// prepared statement
+        $prepared_query->bind_param("s", $username);
+        $prepared_query->execute();
         $result = $prepared_query->get_result();
-        
 
-        if($result-> num_rows === 1){
+        if(mysqli_num_rows($result) === 1){
+            $row = mysqli_fetch_assoc($result);
 
-            $row = $result->fetch_assoc(); 
+            // used to debug Hashing PROBLEM
+            
+            // $row = $result->fetch_assoc(); 
+            // print_r($row);
+            // if(password_verify($password, $hashed_password)){
+            //     print_r("Yes");
+            //     print_r($password);
+            //     print_r($hashed_password);
+            // }else {
+            //     print_r("No");
+            // }
 
             if ($row ['username'] === $username && password_verify($password, $row['password'])){
                 $_SESSION['username'] = $row ['username'];
                 $_SESSION['name'] = $row ['name'];
                 $_SESSION['id'] = $row ['id'];
-                header('Location: home.php');
+                header('Location: ../students.php');
+                echo "<!-- Debugging: Username = $username, Password = $password -->";
                 exit();
             }else{
-                header('Location: index.php?error=Incorrect credentials');
+                header('Location: index.php?error=Incorrect Username or Password');
                 exit();
+
             }
-            // print_r($row);
         }else{
-            header('Location: index.php?error=Incorrect credentials');
+            echo "<script>";
+            echo "console.log('Debugging: Username = $username, Password = $password');";
+            echo "</script>";
+            header('Location: index.php?error=Not Found');
             exit();
         }
     }

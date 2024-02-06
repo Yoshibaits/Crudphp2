@@ -1,9 +1,13 @@
+<?php
+session_start();
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CRUD Part 2</title>
+    <title>CRUD</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   </head>
@@ -122,14 +126,23 @@
         </div>
     </div>
     <!-- Main Table Body -->
-    <div class="container">
+    <div class="container mt-3">
         <div class="row">
             <div class="col-md-12">
                 <div class="card-header">
-                    <h4>PHP Ajax CRUD without page reload using bootstrap Modal</h4>
-                    <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#studentAddModal">
+                    <h4 class="d-inline-block">You are currently logged in as, 
+                        <?php
+                            
+                            require './dbconnection/db-con.php';
+                            if (isset($_SESSION['id']) && isset($_SESSION['name'])){
+                                echo $_SESSION['name'];
+                            }
+                        ?>
+                    </h4>
+                    <a href="./login/logout.php" class="btn btn-primary float-end"> Logout </a>
+                    <div class="block"><button type="button" class="btn btn-primary float-left my-2 " data-bs-toggle="modal" data-bs-target="#studentAddModal">
                     Add Student
-                    </button>
+                    </button></div>
                 </div>
                 <div class="card-body">
                     <table id="myTable" class="table table-bordered table-striped">
