@@ -10,7 +10,8 @@ session_start();
     <title>CRUD</title>
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  </head>
+    <link rel="stylesheet" href="./mainstyle.css">
+</head>
   <body>
 
     <!-- add student -->
@@ -129,8 +130,8 @@ session_start();
     <div class="container mt-3">
         <div class="row">
             <div class="col-md-12">
-                <div class="card-header">
-                    <h4 class="d-inline-block">You are currently logged in as, 
+                <div class="card-header ">
+                    <h4 class="d-inline-block p2">You are currently logged in as, 
                         <?php
                             
                             require './dbconnection/db-con.php';
@@ -144,10 +145,10 @@ session_start();
                     Add Student
                     </button></div>
                 </div>
-                <div class="card-body">
-                    <table id="myTable" class="table table-bordered table-striped">
+                <div class="table-responsive card-body rounded-4">
+                    <table id="myTable" class="table table-responsive table-bordered table-striped border-dark table-hover text-center">
                         <thead>
-                            <tr>
+                            <tr class="table-dark table-active text-uppercase text-white">
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Email</th>
@@ -166,7 +167,7 @@ session_start();
                             if (mysqli_num_rows($query_run) > 0) {
                                 foreach ($query_run as $student) {
                                     ?>
-                                    <tr>
+                                    <tr class="">
                                         <td><?= $student['id'] ?></td>
                                         <td><?= $student['name'] ?></td>
                                         <td><?= $student['email'] ?></td>
