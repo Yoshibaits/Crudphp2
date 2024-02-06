@@ -145,10 +145,10 @@
                         </thead>
                         <tbody>
                             <?php
-                            require './dbconnect.php';
+                            require './dbconnection/dbconnect.php';
 
                             $query = "SELECT * FROM students";
-                            $query_run = mysqli_query($con, $query);
+                            $query_run = mysqli_query($con_student, $query);
 
                             if (mysqli_num_rows($query_run) > 0) {
                                 foreach ($query_run as $student) {
